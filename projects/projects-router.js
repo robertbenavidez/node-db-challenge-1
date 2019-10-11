@@ -5,7 +5,7 @@ const Model = require('./projects-model.js')
 const router = express.Router()
 
 
-
+//get projects
 
 
 router.get('/', (req, res) => {
@@ -26,6 +26,28 @@ router.get('/', (req, res) => {
         res.status(500).json({ message: 'Failed to get projects' });
       });
 })
+
+router.get('/:id', (req, res) => {
+    const id = req.params.id;
+    Model.findById(id)
+    .then(project => {
+        // project.map(project =>{
+        //     if(project.completed === 0) {
+        //         project.completed = false;
+        //         return project
+        //     } else {
+        //         project.completed = true;
+        //         return project
+        //     }
+        // })
+        res.json(project);
+      })
+      .catch(err => {
+        res.status(500).json({ message: 'Failed to get project' });
+      });
+})
+
+
 
 //Add a Project
 
